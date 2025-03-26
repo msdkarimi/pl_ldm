@@ -29,15 +29,11 @@ def get_unet_config():
     unet_configs.image_size = 32
     unet_configs.in_channels = 4
     unet_configs.out_channels = 4
-    unet_configs.model_channels = 256 #320
-    unet_configs.attention_resolutions = [1,2,4,8]#[4, 2, 1]
+    unet_configs.model_channels = 320
+    unet_configs.attention_resolutions = [8, 4, 2, 1]
     unet_configs.num_res_blocks = 2
-    unet_configs.channel_mult = [1,2,2,4,4] #[1, 2, 4, 4]
+    unet_configs.channel_mult = [1, 2, 2, 4, 4]
     unet_configs.num_head_channels = 32
-    # unet_configs.num_heads = 8 # instead of above
-    # unet_configs.use_spatial_transformer = True
-    # unet_configs.transformer_depth = 1
-    # unet_configs.context_dim = 768
     return unet_configs
 
 def get_diffusion_config():
@@ -46,7 +42,7 @@ def get_diffusion_config():
     diffusion_configs.linear_end = 0.0120 # 0.0195
     diffusion_configs.timesteps = 1000
     diffusion_configs.beta_schedule = 'linear'
-    diffusion_configs.loss_type = 'l1'
+    diffusion_configs.loss_type = 'l2'
     diffusion_configs.first_stage_key = 'image'
     # diffusion_configs.cond_stage_key = 'caption'
     # diffusion_configs.image_size = 64
@@ -91,9 +87,9 @@ def get_model_config():
     model_configs.condition_stage=None
     model_configs.vae_scale_factor=0.18215
     model_configs.loss_type='l2'
-    model_configs.warm_up_steps=5000
+    model_configs.warm_up_steps=6000
     model_configs.lr=9e-5
-    model_configs.batch_size=8
+    model_configs.batch_size=64
     model_configs.diffusion_logger_every=50
     return model_configs
 
