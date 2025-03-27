@@ -180,8 +180,9 @@ class LatentDM(pl.LightningModule):
             # _log["diffused_images"] = diffusion_grid
             _log.update({'diffused_images': diffusion_grid})
         if sample:
-            # todo add later ema model
-            samples, z_denoise_row = self.sample_log(c, _samples) # z_denoise_row is intermediates from T to 0
+
+            with self.ema_scope('sampling'):
+                samples, z_denoise_row = self.sample_log(c, _samples) # z_denoise_row is intermediates from T to 0
             x_samples = self.decode_latent(samples)
             # _log["samples"] = x_samples
             _log.update({'samples': x_samples})
