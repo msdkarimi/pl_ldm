@@ -1,3 +1,4 @@
+from contextlib import contextmanager
 import pytorch_lightning as pl
 import torch
 from lightning.pytorch.utilities.types import EVAL_DATALOADERS, TRAIN_DATALOADERS
@@ -12,6 +13,7 @@ from utils.utils import image_transform, make_grid, noise_like, AverageMeter
 from torch.utils.data import DataLoader
 from lightning.pytorch.utilities import grad_norm
 from tqdm import tqdm
+from models.ema import LitEma
 
 class LatentDM(pl.LightningModule):
     def __init__(self,
@@ -44,6 +46,10 @@ class LatentDM(pl.LightningModule):
         self.diffusion_logger_every = diffusion_logger_every
 
         self.with_ema = with_ema
+        if self.with_ema:
+            self.model_ema = LitEma(self.model)
+            print(f"Keeping EMAs of {len(list(self.model_ema.buffers()))}.")
+
 
         self.running_loss = AverageMeter()
 
@@ -300,6 +306,21 @@ class LatentDM(pl.LightningModule):
 
         model_mean, posterior_variance, posterior_log_variance = self.diffusion.q_posterior(x_start=x_recon, x_t=x, t=t)
         return model_mean, posterior_variance, posterior_log_variance, x_recon
+
+    @contextmanager
+    def ema_scope(self, context=None):
+        if self.with_ema:
+            self.model_ema.store(self.model.parameters())
+            self.model_ema.copy_to(self.model)
+            if context is not None:
+                print(f"{context}: Switched to EMA weights")
+        try:
+            yield None
+        finally:
+            if self.with_ema:
+                self.model_ema.restore(self.model.parameters())
+                if context is not None:
+                    print(f"{context}: Restored training weights")
 
 
     def train_dataloader(self) -> TRAIN_DATALOADERS:

@@ -129,20 +129,7 @@ class GaussianDiffusion(nn.Module):
         self.register_buffer('lvlb_weights', lvlb_weights, persistent=False)
         assert not torch.isnan(self.lvlb_weights).all()
 
-    @contextmanager
-    def ema_scope(self, context=None):
-        if self.use_ema:
-            self.model_ema.store(self.model.parameters()) # saving the current training parameters, allowing them to be restored later.
-            self.model_ema.copy_to(self.model) # replacing the model's weights with the EMA weights
-            if context is not None:
-                print(f"{context}: Switched to EMA weights")
-        try:
-            yield None
-        finally:
-            if self.use_ema:
-                self.model_ema.restore(self.model.parameters())
-                if context is not None:
-                    print(f"{context}: Restored training weights")
+
 
     def q_mean_variance(self, x_start, t):
         """
