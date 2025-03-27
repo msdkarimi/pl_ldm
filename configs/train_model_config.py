@@ -89,7 +89,7 @@ def get_model_config():
     model_configs.loss_type='l2'
     model_configs.warm_up_steps=6000
     model_configs.lr=9e-5
-    model_configs.batch_size=64
+    model_configs.batch_size=80
     model_configs.diffusion_logger_every=50
     return model_configs
 
@@ -112,7 +112,7 @@ def get_pl_trainer_config():
     trainer_configs.accelerator = 'gpu'   # Use GPU
     trainer_configs.devices = torch.cuda.device_count()   # Use 1 GPU (you can set this to a list of device ids for multi-GPU)
     trainer_configs.callbacks = [CustomLogger('ldm_log'), checkpoint_callback]
-    trainer_configs.strategy ='auto'  # "ddp"
+    trainer_configs.strategy = "ddp_find_unused_parameters_true" # 'auto'
     return trainer_configs
 
 def get_image_loger_config():
