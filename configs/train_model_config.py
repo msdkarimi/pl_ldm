@@ -91,6 +91,8 @@ def get_model_config():
     model_configs.lr=9e-5
     model_configs.batch_size=80
     model_configs.diffusion_logger_every=50
+    model_configs.with_ema=True
+
     return model_configs
 
 def get_pl_trainer_config():

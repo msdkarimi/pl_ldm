@@ -24,6 +24,7 @@ class LatentDM(pl.LightningModule):
                  lr=1e-4,
                  batch_size=1,
                  diffusion_logger_every=50,
+                 with_ema=False,
                  ):
         super().__init__()
         self.model = UNetModel(**get_unet_config())
@@ -41,6 +42,8 @@ class LatentDM(pl.LightningModule):
 
         self.batch_size = batch_size
         self.diffusion_logger_every = diffusion_logger_every
+
+        self.with_ema = with_ema
 
         self.running_loss = AverageMeter()
 
