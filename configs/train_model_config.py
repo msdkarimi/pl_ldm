@@ -1,6 +1,5 @@
 from ml_collections import ConfigDict
-from torch.backends.mkl import verbose
-
+from models.clip_text_encoder import FrozenCLIPEmbedder
 from utils.logger_hook import CustomLogger
 from pytorch_lightning.callbacks import ModelCheckpoint
 import os
@@ -84,7 +83,7 @@ def get_model_config():
     model_configs = ConfigDict()
     model_configs.first_stage_key='image'
     model_configs.condition_stage_key='caption'
-    model_configs.condition_stage=None
+    model_configs.condition_stage= FrozenCLIPEmbedder()
     model_configs.vae_scale_factor=0.18215
     model_configs.loss_type='l2'
     model_configs.warm_up_steps=6000
@@ -114,7 +113,7 @@ def get_pl_trainer_config():
     trainer_configs.accelerator = 'gpu'   # Use GPU
     trainer_configs.devices = torch.cuda.device_count()   # Use 1 GPU (you can set this to a list of device ids for multi-GPU)
     trainer_configs.callbacks = [CustomLogger('ldm_log'), checkpoint_callback]
-    trainer_configs.strategy = "ddp_find_unused_parameters_true" # 'auto'
+    trainer_configs.strategy = 'auto' #"ddp_find_unused_parameters_true" # 'auto'
     return trainer_configs
 
 def get_image_loger_config():
