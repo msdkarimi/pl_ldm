@@ -29,10 +29,15 @@ def get_unet_config():
     unet_configs.in_channels = 4
     unet_configs.out_channels = 4
     unet_configs.model_channels = 320
-    unet_configs.attention_resolutions = [8, 4, 2, 1]
+    unet_configs.attention_resolutions = [ 4, 2, 1 ]
     unet_configs.num_res_blocks = 2
-    unet_configs.channel_mult = [1, 2, 2, 4, 4]
-    unet_configs.num_head_channels = 32
+    unet_configs.channel_mult = [1, 2, 4, 4]
+    unet_configs.num_heads = 8
+    unet_configs.use_spatial_transformer = True
+    unet_configs.transformer_depth = 1
+    unet_configs.context_dim = 768
+    unet_configs.legacy = False
+
     return unet_configs
 
 def get_diffusion_config():

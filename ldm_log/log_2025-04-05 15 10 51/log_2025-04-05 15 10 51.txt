@@ -1,0 +1,1 @@
+[2025-04-05 15:10:53 fsspec.local] (local.py 314): DEBUG open file: C:/Users/massoud/PycharmProjects/copyDDPM/pl_ldm/lightning_logs/version_0/hparams.yaml
