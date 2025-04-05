@@ -107,7 +107,7 @@ def get_pl_trainer_config():
     )
     trainer_configs = ConfigDict()
     trainer_configs.log_every_n_steps = 10
-    trainer_configs.check_val_every_n_epoch = None # Disable epoch-based validation
+    trainer_configs.check_val_every_n_epoch = None
     # trainer_configs.val_check_interval = 200   # Run validation every 200 steps
     trainer_configs.max_epochs = -1   # disables epoch-based training
     trainer_configs.max_steps = 1e6   # total steps
