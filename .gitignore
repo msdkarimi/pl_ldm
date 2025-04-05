@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 .idea
 pretrained/
+ldm_log/
 # C extensions
 *.so
 
