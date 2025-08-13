@@ -3,8 +3,14 @@ This project was developed for an **insurance company** specializing in assessin
 
 **Generated image + mask examples:** 
 
-![Wet Damage Example](assets/image_0.png)
-![Wet Damage Example](assets/image.png)
+<p align="center">
+  <img src="assets/image_0.png" alt="Wet Damage Example" height="150" width="300"/><br>
+  <em>Figure 1: The water drip created a bubbling effect on the white ceiling paint.</em><br><br>
+  <img src="assets/photo_5829985030338890040_x.jpg" alt="Wet Damage Example" height="150" width="300"/><br>
+    <em>Figure 2: on the wall in this bathroom, dark mold is growing .</em><br><br>
+  <img src="assets/image.png" alt="Wet Damage Example" width="300" height="150"/><br>
+    <em>Figure 3: on the hardwood floor there is a patch of lifted tiles.</em><br><br>
+</p>
 
 ## High-Resolution Synthetic Image–Mask Dataset Generation
 
