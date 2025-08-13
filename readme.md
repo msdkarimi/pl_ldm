@@ -1,3 +1,11 @@
+**Project Context**  
+This project was developed for an **insurance company** specializing in assessing and preventing **wet damage** in properties. The generated image–mask dataset simulates realistic water intrusion scenarios (e.g., pipe leaks, flooding, ceiling seepage) along with precise segmentation masks, enabling more accurate and automated damage detection in visual inspection systems.
+
+**Generated image + mask examples:** 
+
+![Wet Damage Example](assets/image_0.png)
+![Wet Damage Example](assets/image.png)
+
 ## High-Resolution Synthetic Image–Mask Dataset Generation
 
 Developed a **prompt-driven, high-resolution synthetic image–mask dataset** by training a **guided latent diffusion model** that integrates:
